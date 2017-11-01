@@ -1,4 +1,4 @@
-package minefield.obj;
+package minefield;
 
 public class FieldSafe extends Field {
 	

@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import minefield.obj.Cell;
+import minefield.Cell;
 
 public class TestCell {
 	
