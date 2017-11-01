@@ -23,4 +23,8 @@ public class Cell {
 	public boolean uncover() {
 		return false;
 	}
+	
+	public boolean unSetDangerous() {
+		return false;
+	}
 }

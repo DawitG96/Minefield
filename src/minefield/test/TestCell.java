@@ -8,7 +8,7 @@ import minefield.obj.Cell;
 
 public class TestCell {
 	
-	Cell cell;
+	private Cell cell;
 	
 	@Test
 	public void test01() {
@@ -24,7 +24,73 @@ public class TestCell {
 		cell = new Cell(true, 0);
 		assertEquals(cell.getNumMineNear(), 0);
 		
-		cell = new Cell(true, 2);
-		assertEquals(cell.getNumMineNear(), 2);
+		cell = new Cell(true, 3);
+		assertEquals(cell.getNumMineNear(), 3);
+		
+		cell = new Cell(true, 8);
+		assertEquals(cell.getNumMineNear(), 8);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void test03() {
+		cell = new Cell(true, -1);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void test04() {
+		cell = new Cell(true, 9);
+	}
+	
+	@Test
+	public void test05() {
+		cell = new Cell(true, 0);
+		
+		assertTrue(cell.isCovered());
+		assertTrue(cell.uncover());
+		
+		assertFalse(cell.uncover());
+		assertFalse(cell.uncover());
+		
+		assertFalse(cell.isCovered());
+		assertFalse(cell.isCovered());
+	}
+	
+	@Test
+	public void test06() {
+		cell = new Cell(true, 0);
+		
+		assertFalse(cell.isDangerous());
+		assertFalse(cell.unSetDangerous());
+		
+		assertTrue(cell.setDangerous());
+		
+		assertFalse(cell.setDangerous());
+		assertFalse(cell.setDangerous());
+		assertTrue(cell.isDangerous());
+		assertTrue(cell.isDangerous());
+		
+		assertTrue(cell.unSetDangerous());
+		
+		assertFalse(cell.isDangerous());
+	}
+
+	@Test
+	public void test07() {
+		cell = new Cell(true, 4);
+		
+		assertFalse(cell.isDangerous());
+		assertTrue(cell.isMine());
+		assertEquals(cell.getNumMineNear(), 4);
+		assertTrue(cell.isCovered());
+		
+		assertTrue(cell.setDangerous());
+		assertFalse(cell.uncover());
+		assertTrue(cell.unSetDangerous());
+		
+		assertTrue(cell.uncover());
+		assertFalse(cell.setDangerous());
+		assertFalse(cell.isCovered());
+		assertTrue(cell.isMine());
+		assertEquals(cell.getNumMineNear(), 4);
 	}
 }
