@@ -1,6 +1,6 @@
-package minefield.interfaces;
+package minefield.obj;
 
-public abstract class FieldNotSafe extends Field {
+public class FieldNotSafe extends Field {
 	
 	protected FieldNotSafe(int row, int column, int mine) {
 		super(row, column, mine);

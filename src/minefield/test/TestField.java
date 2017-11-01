@@ -1,8 +1,9 @@
 package minefield.test;
 
 import org.junit.Test;
-import minefield.interfaces.FieldNotSafe;
-import minefield.interfaces.FieldSafe;
+
+import minefield.obj.FieldNotSafe;
+import minefield.obj.FieldSafe;
 
 public class TestField {
 	
