@@ -3,10 +3,10 @@ package minefield.test;
 import org.junit.Test;
 import minefield.interfaces.Cell;
 
-public class TestCell {
+public class TestField {
 	
 	@Test
-	public void test01() {
+	public void test01(){
 		
 	}
 }

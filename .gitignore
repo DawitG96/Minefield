@@ -1,6 +1,4 @@
 /bin/
 /.settings/
-/README.md
-/.gitignore
-/.classpath
-/.project
+.classpath
+.project
