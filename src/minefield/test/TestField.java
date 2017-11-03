@@ -18,14 +18,14 @@ public class TestField {
 	@Test
 	public void test01(){
 		field = new FieldNotSafe(10, 10, 10);
-		assertEquals(field.column, 10);
-		assertEquals(field.row, 10);
-		assertEquals(field.numMine, 10);
+		assertEquals(field.MAX_COLUMN, 10);
+		assertEquals(field.MAX_ROW, 10);
+		assertEquals(field.NUMBER_OF_MINES, 10);
 		
 		field = new FieldSafe(10, 10, 10);
-		assertEquals(field.column, 10);
-		assertEquals(field.row, 10);
-		assertEquals(field.numMine, 10);
+		assertEquals(field.MAX_COLUMN, 10);
+		assertEquals(field.MAX_ROW, 10);
+		assertEquals(field.NUMBER_OF_MINES, 10);
 	}
 	
 	/**
@@ -34,19 +34,19 @@ public class TestField {
 	@Test
 	public void test02(){
 		field = new FieldNotSafe(10, 10, 99);
-		assertEquals(field.column, 10);
-		assertEquals(field.row, 10);
-		assertEquals(field.numMine, 99);
+		assertEquals(field.MAX_COLUMN, 10);
+		assertEquals(field.MAX_ROW, 10);
+		assertEquals(field.NUMBER_OF_MINES, 99);
 		
 		field = new FieldNotSafe(20, 20, 1);
-		assertEquals(field.column, 20);
-		assertEquals(field.row, 20);
-		assertEquals(field.numMine, 1);
+		assertEquals(field.MAX_COLUMN, 20);
+		assertEquals(field.MAX_ROW, 20);
+		assertEquals(field.NUMBER_OF_MINES, 1);
 		
 		field = new FieldNotSafe(5, 5, 16);
-		assertEquals(field.column, 10);
-		assertEquals(field.row, 10);
-		assertEquals(field.numMine, 99);
+		assertEquals(field.MAX_COLUMN, 10);
+		assertEquals(field.MAX_ROW, 10);
+		assertEquals(field.NUMBER_OF_MINES, 99);
 	}
 	
 	/**
@@ -55,19 +55,19 @@ public class TestField {
 	@Test
 	public void test03(){
 		field = new FieldSafe(10, 10, 91);
-		assertEquals(field.column, 10);
-		assertEquals(field.row, 10);
-		assertEquals(field.numMine, 99);
+		assertEquals(field.MAX_COLUMN, 10);
+		assertEquals(field.MAX_ROW, 10);
+		assertEquals(field.NUMBER_OF_MINES, 99);
 		
 		field = new FieldSafe(20, 20, 1);
-		assertEquals(field.column, 20);
-		assertEquals(field.row, 20);
-		assertEquals(field.numMine, 1);
+		assertEquals(field.MAX_COLUMN, 20);
+		assertEquals(field.MAX_ROW, 20);
+		assertEquals(field.NUMBER_OF_MINES, 1);
 		
 		field = new FieldSafe(5, 5, 16);
-		assertEquals(field.column, 10);
-		assertEquals(field.row, 10);
-		assertEquals(field.numMine, 99);
+		assertEquals(field.MAX_COLUMN, 10);
+		assertEquals(field.MAX_ROW, 10);
+		assertEquals(field.NUMBER_OF_MINES, 99);
 	}
 	
 	/**
@@ -151,25 +151,60 @@ public class TestField {
 		
 		assertEquals(field.getNumCoveredCell(), 100);
 		
-		for(int j=0; j<field.column; j++)
-			for(int i=0; i<field.row; i++)
+		for(int j=0; j<field.MAX_COLUMN; j++)
+			for(int i=0; i<field.MAX_ROW; i++)
 			{
 				assertTrue(field.isCellCovered(i, j));
 				assertFalse(field.isCellDangerous(i, j));
-				assertFalse(field.isCellMine(i, j));
+				assertFalse(field.isCellMine(i, j));		// deve dare falso perche se no so gia dove sono le bombe
 				assertFalse(field.isMineExploded(i, j));
 			}
 		
 		field = new FieldNotSafe(10, 20, 10);
 		assertEquals(field.getNumCoveredCell(), 100);
 		
-		for(int j=0; j<field.column; j++)
-			for(int i=0; i<field.row; i++)
+		for(int j=0; j<field.MAX_COLUMN; j++)
+			for(int i=0; i<field.MAX_ROW; i++)
 			{
 				assertTrue(field.isCellCovered(i, j));
 				assertFalse(field.isCellDangerous(i, j));
-				assertFalse(field.isCellMine(i, j));
+				assertFalse(field.isCellMine(i, j));		// deve dare falso perche se no so gia dove sono le bombe
 				assertFalse(field.isMineExploded(i, j));
+			}
+	}
+	
+	/**
+	 * Test per scoprire una cella
+	 */
+	@Test
+	public void test8(){
+		field = new FieldSafe(8, 15, 12);
+		
+		assertTrue(field.uncoverCell(0, 0));
+		assertFalse(field.isCellCovered(0, 0));
+		assertFalse(field.isCellMine(0, 0));
+		assertFalse(field.isMineExploded(0, 0));
+		
+		field = new FieldNotSafe(18, 5, 24);
+		
+		assertTrue(field.uncoverCell(0, 0));
+		assertFalse(field.isCellCovered(0, 0));
+	}
+	
+	/**
+	 * Test specifico per Safe e uncover multipli
+	 */
+	@Test
+	public void test09(){
+		field = new FieldSafe(14, 13, 12);
+		
+		field.uncoverCell(6, 6);
+		
+		for(int column = 5; column<8; column++)
+			for(int row = 5; row<8; row++)
+			{
+				assertFalse(field.isCellMine(row, column));
+				assertFalse(field.isMineExploded(row, column));
 			}
 	}
 }

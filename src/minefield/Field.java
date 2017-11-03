@@ -2,15 +2,15 @@ package minefield;
 
 public class Field {
 	
-	public final int numMine;
-	public final int row;
-	public final int column;
+	public final int NUMBER_OF_MINES;
+	public final int MAX_ROW;
+	public final int MAX_COLUMN;
 	
-	protected Field(int row, int column, int mine)
+	public Field(int row, int column, int mine)
 	{
-		this.numMine = mine;
-		this.column = column;
-		this.row = row;
+		NUMBER_OF_MINES = mine;
+		MAX_COLUMN = column;
+		MAX_ROW = row;
 	}
 	
 	public boolean isMineExploded(int row, int column) {
