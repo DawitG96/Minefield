@@ -4,9 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import minefield.Field;
-import minefield.FieldNotSafe;
-import minefield.FieldSafe;
+import minefield.*;
+import minefield.exceptions.*;
 
 public class TestField {
 	
@@ -46,7 +45,7 @@ public class TestField {
 		field = new FieldNotSafe(5, 5, 16);
 		assertEquals(field.MAX_COLUMN, 10);
 		assertEquals(field.MAX_ROW, 10);
-		assertEquals(field.NUMBER_OF_MINES, 99);
+		assertEquals(field.NUMBER_OF_MINES, 16);
 	}
 	
 	/**
@@ -57,7 +56,7 @@ public class TestField {
 		field = new FieldSafe(10, 10, 91);
 		assertEquals(field.MAX_COLUMN, 10);
 		assertEquals(field.MAX_ROW, 10);
-		assertEquals(field.NUMBER_OF_MINES, 99);
+		assertEquals(field.NUMBER_OF_MINES, 91);
 		
 		field = new FieldSafe(20, 20, 1);
 		assertEquals(field.MAX_COLUMN, 20);
@@ -67,79 +66,87 @@ public class TestField {
 		field = new FieldSafe(5, 5, 16);
 		assertEquals(field.MAX_COLUMN, 10);
 		assertEquals(field.MAX_ROW, 10);
-		assertEquals(field.NUMBER_OF_MINES, 99);
+		assertEquals(field.NUMBER_OF_MINES, 16);
 	}
 	
 	/**
-	 * Test per il costruttore con parametri non validi
+	 * Test per il costruttore con parametri non validi: Colonne
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = ColumnException.class)
 	public void test04a(){
 		field = new FieldSafe(-10, 10, 91);
 	}
 	
 	/**
-	 * Test per il costruttore con parametri non validi
+	 * Test per il costruttore con parametri non validi: Colonne
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = ColumnException.class)
 	public void test04b(){
 		field = new FieldNotSafe(-10, 10, 91);
 	}
 	
 	/**
-	 * Test per il costruttore con parametri non validi
+	 * Test per il costruttore con parametri non validi: Righe
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = RowException.class)
 	public void test05a(){
 		field = new FieldSafe(10, -10, 91);
 	}
 	
 	/**
-	 * Test per il costruttore con parametri non validi
+	 * Test per il costruttore con parametri non validi: Righe
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = RowException.class)
 	public void test05b(){
 		field = new FieldNotSafe(10, -10, 91);
 	}
 	
 	/**
-	 * Test per il costruttore con parametri non validi
+	 * Test per il costruttore con parametri non validi: Mine
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = MineTooLowException.class)
 	public void test06a(){
 		field = new FieldSafe(10, 10, -91);
 	}
 	
 	/**
-	 * Test per il costruttore con parametri non validi
+	 * Test per il costruttore con parametri non validi: Mine
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = MineTooLowException.class)
 	public void test06b(){
 		field = new FieldSafe(10, 10, -91);
 	}
 	
 	/**
-	 * Test per il costruttore con parametri non validi
+	 * Test per il costruttore con parametri non validi: Mine
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = MineTooLowException.class)
 	public void test06c(){
 		field = new FieldSafe(10, 10, 0);
 	}
 	
 	/**
-	 * Test per il costruttore con parametri non validi
+	 * Test per il costruttore con parametri non validi: Mine
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = MineTooLowException.class)
 	public void test06d(){
 		field = new FieldSafe(10, 10, 0);
 	}
 	
 	/**
-	 * Test per il costruttore con parametri non validi
+	 * Test per il costruttore con parametri non validi: Mine
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = MineTooHighException.class)
 	public void test06e(){
 		field = new FieldSafe(10, 10, 92);
+	}
+	
+	/**
+	 * Test per il costruttore con parametri non validi: Mine
+	 */
+	@Test(expected = MineTooHighException.class)
+	public void test06f(){
+		field = new FieldNotSafe(10, 10, 100);
 	}
 	
 	/**
